@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dario Amodei Accuses Rival AI CEOs of 'Vibes-Based' Positioning | Tech</title>
+  <meta
+    name="description"
+    content="Dario Amodei said Wednesday that humans should keep control of political decisions as AI automates more tasks, calling out rival AI executives on X."
+  />
+
+  <style>
+    :root {
+      --bg: #f4f3ee;
+      --surface: #ffffff;
+      --ink: #182e26;
+      --muted: #586660;
+      --accent: #006b46;
+      --border: #dcdad0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 740px;
+      margin: 20px auto 0;
+      padding: 0 20px;
+      font-size: 0.9rem;
+    }
+
+    button {
+      background: var(--accent);
+      color: #fff;
+      border: 0;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    article {
+      max-width: 740px;
+      margin: 20px auto 64px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0 0 20px;
+      font-size: 1.85rem;
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0 0 16px;
+    }
+
+    .paywall-box {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+
+    .paywall-box h2 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .paywall-box p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span id="status-label">Status: Unsubscribed (Public Preview)</span>
+    <button id="toggle-access-btn" type="button">Simulate Subscriber Login</button>
+  </div>
+
+  <!-- PUBLIC SEO + TEASER LAYER: Safe to index, zero full-article flash -->
+  <article>
+    <span class="kicker">Tech</span>
+    <h1>Dario Amodei accuses rival AI CEOs of ‘vibes-based commercial and political positioning’</h1>
+
+    <div id="teaser">
+      <p>
+        Dario Amodei said Wednesday that humans should keep control of political decisions, even as AI
+        takes on more complex tasks, from driving cars to writing software.
+      </p>
+      <p>
+        In a lengthy post on X on Wednesday, the Anthropic CEO said that rival AI executives are paying
+        lip service to human control over AI while continuing to release products that increasingly
+        automate human tasks.
+      </p>
+    </div>
+
+    <!-- GATED LAYER: Starts empty in DOM; only populated when access is verified -->
+    <div id="gated-content" class="hidden" aria-live="polite"></div>
+
+    <section id="paywall" class="paywall-box">
+      <h2>Continue reading with a subscription</h2>
+      <p>
+        The rest of this analysis is withheld until access is verified—not hidden with CSS or a
+        zero-height box.
+      </p>
+      <button id="unlock-inline-btn" type="button">Unlock Full Story</button>
+    </section>
+  </article>
+
+  <script>
+    const gatedEl = document.getElementById("gated-content");
+    const paywallEl = document.getElementById("paywall");
+    const statusLabel = document.getElementById("status-label");
+    const toggleBtn = document.getElementById("toggle-access-btn");
+    const unlockInlineBtn = document.getElementById("unlock-inline-btn");
+
+    // Simulates a protected server/API response returned ONLY after auth/subscription check
+    function fetchProtectedBodyFromServer() {
+      return [
+        "Full story body (delivered only after access check): Amodei argued that commercial incentives often push labs toward rapid automation milestones while leaving governance and political oversight as an afterthought.",
+        "He urged policymakers and industry leaders to draw clear boundaries around democratic and political decision-making rather than treating automation as inevitable."
+      ];
+    }
+
+    function renderGateState(isSubscribed) {
+      if (isSubscribed) {
+        const paragraphs = fetchProtectedBodyFromServer();
+        gatedEl.innerHTML = paragraphs.map((text) => `<p>${text}</p>`).join("");
+        gatedEl.classList.remove("hidden");
+        paywallEl.classList.add("hidden");
+        statusLabel.textContent = "Status: Subscribed (Full Story Loaded)";
+        toggleBtn.textContent = "Sign Out (Lock Story)";
+      } else {
+        gatedEl.innerHTML = "";
+        gatedEl.classList.add("hidden");
+        paywallEl.classList.remove("hidden");
+        statusLabel.textContent = "Status: Unsubscribed (Public Preview)";
+        toggleBtn.textContent = "Simulate Subscriber Login";
+      }
+    }
+
+    let subscribed = false;
+    renderGateState(subscribed);
+
+    function toggleSub() {
+      subscribed = !subscribed;
+      renderGateState(subscribed);
+    }
+
+    toggleBtn.addEventListener("click", toggleSub);
+    unlockInlineBtn.addEventListener("click", () => {
+      subscribed = true;
+      renderGateState(subscribed);
+    });
+  </script>
+</body>
+</html>
